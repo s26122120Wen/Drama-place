@@ -1,0 +1,646 @@
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的網頁作品集 | Portfolio Showcase</title>
+    <!-- Noto Serif TC & Inter for clean, elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f7f5f0;
+            --bg-card: rgba(255, 255, 255, 0.75);
+            --bg-card-hover: #ffffff;
+            --primary: #7a8b7b;        /* 柔和莫蘭迪綠 */
+            --primary-light: #e8eee9;
+            --primary-dark: #586859;
+            --text-main: #3d403d;      /* 暖深灰 */
+            --text-sub: #7d827d;       /* 中灰 */
+            --text-muted: #a3a8a3;     /* 淺灰 */
+            --border-color: #e5e0d8;
+            --locked-bg: rgba(240, 237, 232, 0.6);
+            --locked-text: #9e9a93;
+            --accent-gold: #c8a97e;     /* 優雅金黃 accent */
+            --shadow-soft: 0 10px 30px -10px rgba(120, 115, 105, 0.12);
+            --shadow-hover: 0 18px 40px -12px rgba(122, 139, 123, 0.22);
+            --shadow-glow: 0 0 20px rgba(122, 139, 123, 0.3);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-full: 9999px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Serif TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2.5rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(200, 169, 126, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(122, 139, 123, 0.1) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Floating background ambient dots */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .ambient-1 {
+            width: 300px;
+            height: 300px;
+            background: #e2ded4;
+            top: 10%;
+            left: -50px;
+        }
+
+        .ambient-2 {
+            width: 350px;
+            height: 350px;
+            background: #d8e2d9;
+            bottom: 5%;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 40px) scale(1.1); }
+        }
+
+        .container {
+            max-width: 1080px;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Profile & Intro Header */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Avatar styling with gentle aura */
+        .avatar-wrapper {
+            position: relative;
+            margin-bottom: 1.25rem;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+        }
+
+        .avatar-wrapper:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .avatar-img {
+            width: 110px;
+            height: 110px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            display: block;
+            border: 2px solid var(--primary-light);
+        }
+
+        .avatar-badge {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: var(--radius-full);
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Name and Subtitle */
+        .profile-name {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+        }
+
+        .profile-title {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            letter-spacing: 0.08em;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .progress-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 3rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 0.6rem;
+        }
+
+        .progress-status {
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--primary-light);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 12.5%; /* 2 out of 16 completed = 12.5% */
+            background: linear-gradient(90deg, var(--primary), var(--accent-gold));
+            border-radius: var(--radius-full);
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .grid-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.15rem;
+            color: var(--text-sub);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .grid-title::after {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--accent-gold);
+            margin: 6px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .missions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            width: 100%;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 960px) {
+            .missions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .missions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .profile-name {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .missions-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        /* Base Card Styling */
+        .mission-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 130px;
+            text-decoration: none;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .week-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+        }
+
+        .card-icon {
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: 0.02em;
+        }
+
+        .mission-card.unlocked {
+            background: var(--bg-card-hover);
+            border-color: rgba(122, 139, 123, 0.3);
+            cursor: pointer;
+        }
+
+        .mission-card.unlocked .week-tag {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .mission-card.unlocked .card-title {
+            color: var(--text-main);
+        }
+
+        /* Hover animations for unlocked cards */
+        .mission-card.unlocked:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .mission-card.unlocked:hover .week-tag {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .mission-card.unlocked:hover .card-icon {
+            transform: scale(1.2) rotate(6deg);
+        }
+
+        /* Gentle glow background effect on hover */
+        .mission-card.unlocked::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(122, 139, 123, 0.12), transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .mission-card.unlocked:hover::before {
+            opacity: 1;
+        }
+
+        .mission-card.locked {
+            background: var(--locked-bg);
+            border-color: rgba(220, 215, 205, 0.5);
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+        .mission-card.locked .week-tag {
+            background: rgba(210, 205, 195, 0.4);
+            color: var(--locked-text);
+        }
+
+        .mission-card.locked .card-title {
+            color: var(--locked-text);
+            font-weight: 500;
+        }
+
+        .mission-card.locked .card-icon {
+            opacity: 0.6;
+            filter: grayscale(1);
+        }
+
+        /* Subtle shake and feedback animation for locked cards */
+        .mission-card.locked:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+            border-color: rgba(190, 185, 175, 0.6);
+        }
+
+        .mission-card.locked:hover .card-icon {
+            animation: lockShake 0.4s ease-in-out;
+            opacity: 1;
+        }
+
+        @keyframes lockShake {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-10deg); }
+            40% { transform: rotate(10deg); }
+            60% { transform: rotate(-6deg); }
+            80% { transform: rotate(6deg); }
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-bottom: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient background soft lighting -->
+    <div class="ambient-bg">
+        <div class="ambient-circle ambient-1"></div>
+        <div class="ambient-circle ambient-2"></div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Profile Header -->
+        <header class="profile-header">
+            <div class="avatar-wrapper">
+                <!-- 預設 SVG 大頭貼，優雅微光圓框 -->
+                <svg class="avatar-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#e8eee9"/>
+                    <circle cx="50" cy="38" r="20" fill="#7a8b7b"/>
+                    <path d="M 20 85 C 20 62, 35 55, 50 55 C 65 55, 80 62, 80 85 Z" fill="#7a8b7b"/>
+                </svg>
+                <span class="avatar-badge" title="前端學習者">Lv.2</span>
+            </div>
+            
+            <h1 class="profile-name">林小明</h1>
+            <p class="profile-title">網頁前端程式設計作品集 ✦ Web Development Journey</p>
+
+            <!-- Progress Bar Card -->
+            <div class="progress-card">
+                <div class="progress-info">
+                    <span class="progress-status">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        解鎖進度：2 / 16 關卡
+                    </span>
+                    <span>12.5%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <main style="width: 100%;">
+            <div style="text-align: center;">
+                <h2 class="grid-title">學習闖關歷程</h2>
+            </div>
+
+            <div class="missions-grid">
+                
+                <!-- 按鈕 1：已解鎖 -->
+                <a href="w1/index.html" class="mission-card unlocked">
+                    <div class="card-top">
+                        <span class="week-tag">Week 01</span>
+                        <span class="card-icon">🎴</span>
+                    </div>
+                    <div class="card-title">Week 1 - 數位名片</div>
+                </a>
+
+                <!-- 按鈕 2：已解鎖 -->
+                <a href="w2/index.html" class="mission-card unlocked">
+                    <div class="card-top">
+                        <span class="week-tag">Week 02</span>
+                        <span class="card-icon">🍱</span>
+                    </div>
+                    <div class="card-title">Week 2 - 今天吃甚麼?</div>
+                </a>
+
+                <!-- 按鈕 3：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 03</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 3 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 4：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 04</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 4 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 5：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 05</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 5 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 6：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 06</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 6 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 7：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 07</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 7 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 8：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 08</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 8 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 9：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 09</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 9 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 10：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 10</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 10 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 11：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 11</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 11 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 12：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 12</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 12 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 13：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 13</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 13 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 14：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 14</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 14 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 15：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 15</span>
+                        <span class="card-icon">🔒</span>
+                    </div>
+                    <div class="card-title">Week 15 - 尚未解鎖</div>
+                </a>
+
+                <!-- 按鈕 16：未解鎖 -->
+                <a href="javascript:void(0)" class="mission-card locked" aria-disabled="true">
+                    <div class="card-top">
+                        <span class="week-tag">Week 16</span>
+                        <span class="card-icon">🏆</span>
+                    </div>
+                    <div class="card-title">Week 16 - 期末專題</div>
+                </a>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 Web Programming Course Portfolio · Crafted with Care</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
